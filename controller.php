@@ -1,6 +1,6 @@
 <?php
 
-namespace Concrete\Package\CommunitystoreShippingExample;
+namespace Concrete\Package\CommunityStoreShippingExample;
 
 use Package;
 use Whoops\Exception\ErrorException;
