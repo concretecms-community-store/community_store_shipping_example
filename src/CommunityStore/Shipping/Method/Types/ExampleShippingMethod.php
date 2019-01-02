@@ -1,7 +1,6 @@
 <?php
 namespace Concrete\Package\CommunityStoreShippingExample\Src\CommunityStore\Shipping\Method\Types;
 
-use Package;
 use Core;
 use Database;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodTypeMethod;
@@ -9,10 +8,11 @@ use Concrete\Package\CommunityStore\Src\CommunityStore\Cart\Cart as StoreCart;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Utilities\Calculator as StoreCalculator;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Customer\Customer as StoreCustomer;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodOffer as StoreShippingMethodOffer;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="CommunityStoreExampleMethods")
+ * @ORM\Entity
+ * @ORM\Table(name="CommunityStoreExampleMethods")
  */
 class ExampleShippingMethod extends ShippingMethodTypeMethod
 {
@@ -21,7 +21,7 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
     }
 
     /**
-     * @Column(type="float")
+     * @ORM\Column(type="float")
      */
     protected $rate;
 

@@ -6,13 +6,11 @@ use Package;
 use Whoops\Exception\ErrorException;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodType as StoreShippingMethodType;
 
-defined('C5_EXECUTE') or die(_("Access Denied."));
-
 class Controller extends Package
 {
     protected $pkgHandle = 'community_store_shipping_example';
-    protected $appVersionRequired = '5.7.2';
-    protected $pkgVersion = '0.9.2';
+    protected $appVersionRequired = '8.0';
+    protected $pkgVersion = '2.0';
 
     public function getPackageDescription()
     {
