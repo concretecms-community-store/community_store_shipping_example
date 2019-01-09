@@ -12,6 +12,11 @@ class Controller extends Package
     protected $appVersionRequired = '8.0';
     protected $pkgVersion = '2.0';
 
+
+    protected $pkgAutoloaderRegistries = array(
+        'src/CommunityStore' => 'Concrete\Package\CommunityStoreShippingExample\Src\CommunityStore',
+    );
+
     public function getPackageDescription()
     {
         return t("An example of how to create a Shipping Method for Community Store");
