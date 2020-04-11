@@ -1,13 +1,13 @@
 <?php
 namespace Concrete\Package\CommunityStoreShippingExample\Src\CommunityStore\Shipping\Method\Types;
 
-use Core;
-use Database;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodTypeMethod;
+use Concrete\Core\Support\Facade\DatabaseORM as dbORM;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Cart\Cart as StoreCart;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Utilities\Calculator as StoreCalculator;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Customer\Customer as StoreCustomer;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Utilities\Calculator as StoreCalculator;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodTypeMethod;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodOffer as StoreShippingMethodOffer;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,7 +54,7 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
         }
         // do any saves here
         $sm->setRate($data['rate']);
-        $em = Database::connection()->getEntityManager();
+        $em = dbORM::entityManager();
         $em->persist($sm);
         $em->flush();
         return $sm;
@@ -62,7 +62,8 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
 
     public function dashboardForm($shippingMethod = null)
     {
-        $this->set('form', Core::make("helper/form"));
+        $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
+        $this->set('form', $app->make("helper/form"));
         $this->set('smt', $this);
         if (is_object($shippingMethod)) {
             $smtm = $shippingMethod->getShippingMethodTypeMethod();
