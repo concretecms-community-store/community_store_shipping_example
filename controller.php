@@ -6,7 +6,7 @@ use Concrete\Core\Package\Package;
 use Whoops\Exception\ErrorException;
 use Concrete\Core\Package\PackageService;
 use Concrete\Core\Support\Facade\Application as ApplicationFacade;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodType as StoreShippingMethodType;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodType;
 
 class Controller extends Package
 {
@@ -37,13 +37,13 @@ class Controller extends Package
             throw new ErrorException(t('This package requires that Community Store be installed'));
         } else {
             $pkg = parent::install();
-            StoreShippingMethodType::add('example', 'Example Shipping', $pkg);
+            ShippingMethodType::add('example', 'Example Shipping', $pkg);
         }
 
     }
     public function uninstall()
     {
-        $pm = StoreShippingMethodType::getByHandle('example');
+        $pm = ShippingMethodType::getByHandle('example');
         if ($pm) {
             $pm->delete();
         }
