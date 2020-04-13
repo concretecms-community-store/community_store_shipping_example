@@ -2,11 +2,11 @@
 namespace Concrete\Package\CommunityStoreShippingExample\Src\CommunityStore\Shipping\Method\Types;
 
 use Concrete\Core\Support\Facade\DatabaseORM as dbORM;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Cart\Cart as StoreCart;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Customer\Customer as StoreCustomer;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Utilities\Calculator as StoreCalculator;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Cart\Cart;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Customer\Customer;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Utilities\Calculator;
 use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodTypeMethod;
-use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodOffer as StoreShippingMethodOffer;
+use Concrete\Package\CommunityStore\Src\CommunityStore\Shipping\Method\ShippingMethodOffer;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,6 +45,7 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
         return $this->addOrUpdate('update', $data);
     }
 
+
     private function addOrUpdate($type, $data)
     {
         if ($type == "update") {
@@ -75,9 +76,9 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
 
     public function isEligible()
     {
-        $subtotal = StoreCalculator::getSubTotal();
-        $totalWeight = StoreCart::getCartWeight();
-        $customer = new StoreCustomer();
+        $subtotal = Calculator::getSubTotal();
+        $totalWeight = Cart::getCartWeight();
+        $customer = new Customer();
 
         // use information from the above (or elsewhere) to determine if shipping offer can be used
         return true;
@@ -86,8 +87,8 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
     public function getOffers() {
         $offers = array();
 
-        // for each sub-rate, create a StoreShippingMethodOffer
-        $offer = new StoreShippingMethodOffer();
+        // for each sub-rate, create a ShippingMethodOffer
+        $offer = new ShippingMethodOffer();
 
         // then set the rate
         $offer->setRate($this->getRate());
@@ -99,7 +100,7 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
         $offers[] = $offer;
 
         // continue adding further rates
-        $offer = new StoreShippingMethodOffer();
+        $offer = new ShippingMethodOffer();
         $offer->setRate($this->getRate() * 1.5);
         $offer->setOfferLabel('Second Offer');
 
@@ -109,6 +110,4 @@ class ExampleShippingMethod extends ShippingMethodTypeMethod
         $offers[] = $offer;
         return $offers;
     }
-
-
 }
