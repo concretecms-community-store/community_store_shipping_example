@@ -13,6 +13,7 @@ class Controller extends Package
     protected $pkgHandle = 'community_store_shipping_example';
     protected $appVersionRequired = '8.0';
     protected $pkgVersion = '2.0';
+    protected $packageDependencies = ['community_store'=>'2.0'];
 
     protected $pkgAutoloaderRegistries = array(
         'src/CommunityStore' => 'Concrete\Package\CommunityStoreShippingExample\Src\CommunityStore',
@@ -30,17 +31,10 @@ class Controller extends Package
 
     public function install()
     {
-        $app = ApplicationFacade::getFacadeApplication();
-        $installed = $app->make(PackageService::class)->getInstalledHandles();
-
-        if(!(is_array($installed) && in_array('community_store',$installed)) ) {
-            throw new ErrorException(t('This package requires that Community Store be installed'));
-        } else {
-            $pkg = parent::install();
-            ShippingMethodType::add('example', 'Example Shipping', $pkg);
-        }
-
+        $pkg = parent::install();
+        ShippingMethodType::add('example', 'Example Shipping', $pkg);
     }
+
     public function uninstall()
     {
         $pm = ShippingMethodType::getByHandle('example');
